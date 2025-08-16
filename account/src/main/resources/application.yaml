@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: account
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank-app}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+
+  jpa:
+    properties:
+      hibernate:
+        default_schema: account_schema
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    liquibase:
+      default-schema: account_schema
+  liquibase:
+    enabled: true
+    url: ${SPRING_LIQUIBASE_URL:jdbc:postgresql://localhost:5432/bank-app}
+    user: postgres
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    change-log: classpath:db/changelog/changelog.yml
