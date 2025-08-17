@@ -671,6 +671,20 @@
     {
       "id": "23af3ac6-73a9-4310-b646-34b996fa6c4b",
       "clientId": "gateway",
+      "protocolMappers": [
+        {
+          "name": "audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "account",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ],
       "name": "gateway",
       "description": "",
       "rootUrl": "http://localhost:8081",

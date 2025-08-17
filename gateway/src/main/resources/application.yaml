@@ -10,10 +10,15 @@ spring:
               uri: ${ACCOUNT_SERVICE_URL:http://account:8080}
               predicates:
                 - Path=/account/**
+              filters:
+                  - RewritePath=/account/?(?<segment>.*), /$\{segment}
             - id: front-service-route  # ID роута
               uri: ${FRONT_SERVICE_URL:http://front:8080}  # URI целевого микросервиса
               predicates:
-                - Path=/**
+                - Path=/front/**
+              filters:
+                - RewritePath=/front/(?<segment>.*), /$\{segment}
+
   security:
     oauth2:
       client:

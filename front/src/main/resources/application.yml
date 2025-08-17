@@ -28,3 +28,6 @@ spring:
 client:
   account:
     url: ${ACCOUNT_SERVICE_URL:http://account:8080}
+
+server:
+  forward-headers-strategy: framework

@@ -14,9 +14,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/signup", "/public/**").permitAll() // явно разрешаем
-                        .anyRequest().authenticated()                         // всё остальное требует JWT
+                        .anyRequest().permitAll()
+//                        .requestMatchers("/signup", "/public/**").permitAll() // явно разрешаем
+//                        .anyRequest().authenticated()                         // всё остальное требует JWT
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults())
