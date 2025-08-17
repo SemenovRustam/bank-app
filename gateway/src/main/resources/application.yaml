@@ -15,9 +15,9 @@ spring:
             - id: front-service-route  # ID роута
               uri: ${FRONT_SERVICE_URL:http://front:8080}  # URI целевого микросервиса
               predicates:
-                - Path=/front/**
+                - Path=/**
               filters:
-                - RewritePath=/front/(?<segment>.*), /$\{segment}
+                - RewritePath=/(?<segment>.*), /$\{segment}
 
   security:
     oauth2:

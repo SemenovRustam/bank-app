@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d23166ec-3f21-4f59-84be-ca7efe60ec4e" name="Changes" comment="" />
+    <list default="true" id="d23166ec-3f21-4f59-84be-ca7efe60ec4e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +81,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feature/version-1",
     "jdk.selected.JAVA_MODULE": "corretto-21",
     "last_opened_file_path": "/Users/rvsemenov/IdeaProjects/bank-app/keyclock",
     "project.structure.last.edited": "Modules",
