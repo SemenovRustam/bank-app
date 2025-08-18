@@ -1,6 +1,14 @@
-version: '3.9'
-
 services:
+#  consul:
+#    image: hashicorp/consul:latest
+#    container_name: consul
+#    ports:
+#      - '8500:8500'  # UI и API
+#    networks:
+#      - app-net
+#      - keycloak-net
+
+
   front:
     container_name: front
     build: front
@@ -9,12 +17,15 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+#      consul:
+#        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank-app
-      ACCOUNT_SERVICE_URL: http://account:8080
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
     networks:
       - app-net
       - keycloak-net  # подключаемся к сети Keycloak
@@ -27,11 +38,15 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+#      consul:
+#        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank-app
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
     networks:
       - app-net
       - keycloak-net
@@ -44,10 +59,11 @@ services:
     depends_on:
       - front
       - account
+#      - consul
     environment:
-      ACCOUNT_SERVICE_URL: http://account:8080
-      FRONT_SERVICE_URL: http://front:8080
-      KEYCLOAK_URL: http://keycloak:8080/realms/bankapp  # ВАЖНО: имя сервиса в сети keycloak-net
+      KEYCLOAK_URL: http://keycloak:8080/realms/bankapp
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
     networks:
       - app-net
       - keycloak-net
@@ -75,5 +91,6 @@ volumes:
 
 networks:
   app-net:
-  keycloak-net:  # обязательно объяви сеть, чтобы использовать с Keycloak
+    driver: bridge
+  keycloak-net:
     external: true

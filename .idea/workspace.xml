@@ -4,8 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d23166ec-3f21-4f59-84be-ca7efe60ec4e" name="Changes" comment="">
+    <list default="true" id="d23166ec-3f21-4f59-84be-ca7efe60ec4e" name="Changes" comment="рабочая версия гейтвея">
+      <change afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/dto/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/src/main/resources/db/changelog/changes/2.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/client/CashClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/account/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/controller/UserApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/controller/UserApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/dto/UserAccountDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/dto/UserAccountDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/semenov/account/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/resources/db/changelog/changelog.yml" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/resources/db/changelog/changelog.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/front/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/client/AccountClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/client/AccountClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/controller/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/controller/SignUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/dto/UserAccountDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/java/com/semenov/front/dto/UserAccountDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyclock/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/keyclock/docker-compose.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +42,9 @@
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/cash">
       <ProjectState />
     </projectState>
     <projectState path="$PROJECT_DIR$/gateway">
@@ -59,8 +90,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "SemenovRustam"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/SemenovRustam/bank-app.git",
+    "accountId": "979f863d-0dde-42c8-8b75-921ea4392e93"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -80,6 +128,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "feature/version-1",
     "jdk.selected.JAVA_MODULE": "corretto-21",
@@ -88,12 +137,21 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "spring.configuration.checksum": "d77ab6a94de7695582e74f346b903d2c"
+  },
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "repository"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/keyclock" />
       <recent name="$PROJECT_DIR$/gateway" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.semenov.account.mapper" />
+      <recent name="com.semenov.front.dto" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.bank-app [build]">
@@ -141,17 +199,6 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="kotlin.scripts.KotlinBuildScript.account:build.gradle.kts" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="kotlin.scripts.KotlinBuildScript.account:build.gradle.kts" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
     <configuration name="AccountApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="bank-app.account.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.semenov.account.AccountApplication" />
@@ -184,6 +231,8 @@
       <list>
         <item itemvalue="Gradle.bank-app [build]" />
         <item itemvalue="Gradle.bank-app [clean]" />
+        <item itemvalue="Gradle.bank-app [build]" />
+        <item itemvalue="Gradle.bank-app [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -198,6 +247,7 @@
       <workItem from="1755290600220" duration="219000" />
       <workItem from="1755290906255" duration="6000" />
       <workItem from="1755291444739" duration="94000" />
+      <workItem from="1755526422154" duration="132000" />
     </task>
     <servers />
   </component>

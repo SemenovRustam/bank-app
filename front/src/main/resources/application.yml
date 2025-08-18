@@ -23,8 +23,12 @@ spring:
     liquibase:
       default-schema: fron
       enabled: true
+#  cloud:
+#    consul:
+#      host: consul
+#      port: 8500
 
-  
+
 client:
   account:
     url: ${ACCOUNT_SERVICE_URL:http://account:8080}

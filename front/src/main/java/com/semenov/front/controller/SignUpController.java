@@ -2,13 +2,17 @@ package com.semenov.front.controller;
 
 import com.semenov.front.client.AccountClient;
 import com.semenov.front.dto.UserAccountDto;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.core.Local;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +37,7 @@ public class SignUpController {
     @PostMapping
     public String createAccount(
             Model model,
+            HttpServletRequest request,
             @RequestParam String login,
             @RequestParam String password,
             @RequestParam String confirmPassword,
@@ -49,8 +54,14 @@ public class SignUpController {
         userDetailsService.createUser(userDetails);
         log.info("create user {}", userDetails);
 
-        UserAccountDto userAccountDto = new UserAccountDto(login, name, birthdate, "RUB", BigDecimal.ZERO);
+        UserAccountDto userAccountDto = new UserAccountDto(login, name, password, birthdate, "RUB", BigDecimal.ZERO);
         accountClient.createUserAccount(userAccountDto);
+
+        model.addAttribute("login", login);
+        model.addAttribute("name", name);
+        model.addAttribute("birthdate", birthdate);
+
+        authenticateUser(login, request);
 
         return "redirect:/main";
     }
@@ -58,6 +69,13 @@ public class SignUpController {
     @GetMapping()
     public String getSign() {
         return "signup";
+    }
+
+    private void authenticateUser(String username, HttpServletRequest request) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+        request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
     }
 
 }

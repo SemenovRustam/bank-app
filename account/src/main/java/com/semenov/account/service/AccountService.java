@@ -5,6 +5,7 @@ import com.semenov.account.entity.Account;
 import com.semenov.account.entity.User;
 import com.semenov.account.repository.AccountRepository;
 import com.semenov.account.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public Account createAccount(Long userId, String currency, BigDecimal value) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));

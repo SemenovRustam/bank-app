@@ -39,4 +39,4 @@ volumes:
 
 networks:
   keycloak-net:
-    external: true
+    driver: bridge
