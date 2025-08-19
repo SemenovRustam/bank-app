@@ -1,6 +1,6 @@
-package com.semenov.front.client;
+package com.semenov.cash.client;
 
-import com.semenov.front.dto.CashDto;
+import com.semenov.cash.dto.CashDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -8,15 +8,15 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @RequiredArgsConstructor
-public class CashClient {
+public class AccountClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${client.cash.url}")
-    private String cashServiceUrl;
+    @Value("${client.account.url}")
+    private String accountServiceUrl;
 
-    public void cash(CashDto dto) {
-        String url = cashServiceUrl + "/api/users";
+    public void moveCash(CashDto dto) {
+        String url = accountServiceUrl + "/cash/move";
         restTemplate.postForEntity(url, dto, Void.class);
     }
 }

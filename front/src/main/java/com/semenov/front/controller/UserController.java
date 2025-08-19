@@ -1,6 +1,8 @@
 package com.semenov.front.controller;
 
 import com.semenov.front.client.AccountClient;
+import com.semenov.front.client.CashClient;
+import com.semenov.front.dto.CashDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,11 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -56,11 +56,15 @@ public class UserController {
                        RedirectAttributes redirectAttributes) {
 
 
-        try {
-            cashApiService.cash(cashDto);
-        } catch (RestClientResponseException restClientResponseException) {
-            redirectAttributes.addFlashAttribute("cashErrors", List.of(restClientResponseException.getResponseBodyAsString()));
-        }
+        CashDto cashDto = CashDto.builder()
+                .cashAction(action)
+                .value(value)
+                .login(login)
+                .currency(currency)
+                .build();
+
+        cashClient.cash(cashDto);
+
         return "redirect:/main";
     }
 }
