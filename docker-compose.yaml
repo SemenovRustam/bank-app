@@ -1,12 +1,12 @@
 services:
-#  consul:
-#    image: hashicorp/consul:latest
-#    container_name: consul
-#    ports:
-#      - '8500:8500'  # UI и API
-#    networks:
-#      - app-net
-#      - keycloak_default
+  consul:
+    image: hashicorp/consul:latest
+    container_name: consul
+    ports:
+      - '8500:8500'  # UI и API
+    networks:
+      - app-net
+      - keycloak_default
 
 
   front:
@@ -17,8 +17,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-#      consul:
-#        condition: service_started
+      consul:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
       SPRING_DATASOURCE_USERNAME: postgres
@@ -38,8 +38,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-#      consul:
-#        condition: service_started
+      consul:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
       SPRING_DATASOURCE_USERNAME: postgres
@@ -59,7 +59,7 @@ services:
     depends_on:
       - front
       - account
-#      - consul
+      - consul
     environment:
       KEYCLOAK_URL: http://keycloak:8080/realms/bankapp
       SPRING_CLOUD_CONSUL_HOST: consul
@@ -75,6 +75,12 @@ services:
       - '8084:8080'
     networks:
       - app-net
+    depends_on:
+      consul:
+        condition: service_started
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
 
   cash:
     container_name: cash
@@ -84,8 +90,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    #      consul:
-    #        condition: service_started
+      consul:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
       SPRING_DATASOURCE_USERNAME: postgres

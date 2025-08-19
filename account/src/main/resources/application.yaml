@@ -20,7 +20,7 @@ spring:
     user: postgres
     password: ${SPRING_DATASOURCE_PASSWORD}
     change-log: classpath:db/changelog/changelog.yml
-#  cloud:
-#    consul:
-#      host: consul
-#      port: 8500
+  cloud:
+    consul:
+      host: consul
+      port: 8500
