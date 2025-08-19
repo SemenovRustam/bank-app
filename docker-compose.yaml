@@ -68,6 +68,14 @@ services:
       - app-net
       - keycloak_default
 
+  notifications:
+    container_name: notifications
+    build: notifications
+    ports:
+      - '8084:8080'
+    networks:
+      - app-net
+
   cash:
     container_name: cash
     build: cash

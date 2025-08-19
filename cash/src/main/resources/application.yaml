@@ -8,8 +8,10 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
 
 server:
-  port: 8088
+  port: 8080
 
 client:
   account:
     url: ${ACCOUNT_SERVICE_URL:http://account:8080}
+  notifications:
+    url: ${NOTIFICATIONS_SERVICE_URL:http://notifications:8080}

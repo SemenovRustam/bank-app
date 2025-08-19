@@ -1,6 +1,7 @@
 package com.semenov.cash.service;
 
 import com.semenov.cash.client.AccountClient;
+import com.semenov.cash.client.NotificationClient;
 import com.semenov.cash.dto.CashDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CashService {
     private final AccountClient accountClient;
+    private final NotificationClient notificationClient;
 
     public void moveCash(CashDto cashDto) {
         accountClient.moveCash(cashDto);
-        //todo(notify)
+        notificationClient.notify(cashDto);
     }
 }

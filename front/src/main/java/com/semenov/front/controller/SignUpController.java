@@ -1,6 +1,7 @@
 package com.semenov.front.controller;
 
 import com.semenov.front.client.AccountClient;
+import com.semenov.front.dto.Currency;
 import com.semenov.front.dto.UserAccountDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +61,7 @@ public class SignUpController {
         model.addAttribute("login", login);
         model.addAttribute("name", name);
         model.addAttribute("birthdate", birthdate);
+        model.addAttribute("currency", Currency.values());
 
         authenticateUser(login, request);
 

@@ -3,8 +3,10 @@ package com.semenov.front.controller;
 import com.semenov.front.client.AccountClient;
 import com.semenov.front.client.CashClient;
 import com.semenov.front.dto.CashDto;
+import com.semenov.front.dto.Currency;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -48,13 +51,13 @@ public class UserController {
         return "redirect:/main";
     }
 
-    @PostMapping("/{login}/сash")
+    @PostMapping("/{login}/cash")
     public String сash(@PathVariable(name = "login") String login,
-                       @RequestParam(name = "currency") String currency,
+                       @RequestParam(name = "currency", defaultValue = "RUB") String currency,
                        @RequestParam(name = "value") Double value,
                        @RequestParam(name = "action") String action,
                        RedirectAttributes redirectAttributes) {
-
+        log.info("/{login}/cash request, currency {}, action {}", currency, action);
 
         CashDto cashDto = CashDto.builder()
                 .cashAction(action)

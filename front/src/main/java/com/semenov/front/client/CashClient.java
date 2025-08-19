@@ -16,7 +16,7 @@ public class CashClient {
     private String cashServiceUrl;
 
     public void cash(CashDto dto) {
-        String url = cashServiceUrl + "/api/users";
+        String url = cashServiceUrl + "/cash";
         restTemplate.postForEntity(url, dto, Void.class);
     }
 }
