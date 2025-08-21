@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    consul:
+      enabled: false
+      discovery:
+        enabled: false
+
+client:
+  account:
+    url: ${ACCOUNT_SERVICE_URL:http://account:8080}
+  cash:
+    url: ${CASH_SERVICE_URL:http://cash:8080}
+  transfer:
+    url: ${TRANSFER_SERVICE_URL:http://trasnfer:8080}
+  exchange:
+    url: ${EXCHANGE_SERVICE_URL:http://exchange:8080}
