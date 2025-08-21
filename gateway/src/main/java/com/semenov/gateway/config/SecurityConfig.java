@@ -17,8 +17,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll()
-//                        .requestMatchers("/signup", "/public/**").permitAll() // явно разрешаем
-//                        .anyRequest().authenticated()                         // всё остальное требует JWT
+                        .requestMatchers("/signup", "/public/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults())

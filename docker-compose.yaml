@@ -7,7 +7,8 @@ services:
     networks:
       - app-net
       - keycloak_default
-
+    logging:
+      driver: "none"
 
   front:
     container_name: front
@@ -73,6 +74,20 @@ services:
     build: notifications
     ports:
       - '8084:8080'
+    networks:
+      - app-net
+    depends_on:
+      consul:
+        condition: service_started
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+
+  transfer:
+    container_name: transfer
+    build: transfer
+    ports:
+      - '8083:8080'
     networks:
       - app-net
     depends_on:

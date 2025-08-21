@@ -2,8 +2,10 @@ package com.semenov.front.controller;
 
 import com.semenov.front.client.AccountClient;
 import com.semenov.front.client.CashClient;
+import com.semenov.front.client.TransferClient;
 import com.semenov.front.dto.CashDto;
 import com.semenov.front.dto.Currency;
+import com.semenov.front.dto.TransferDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final AccountClient accountClient;
     private final CashClient cashClient;
+    private final TransferClient transferClient;
 
     @PostMapping("/{login}/editPassword")
     public String editPassword(@PathVariable(name = "login") String login,
@@ -67,6 +70,27 @@ public class UserController {
                 .build();
 
         cashClient.cash(cashDto);
+
+        return "redirect:/main";
+    }
+
+    @PostMapping("/{login}/transfer")
+    public String transfer(@PathVariable(name = "login") String login,
+                           @RequestParam(name = "from_currency", defaultValue = "RUB") String fromCurrency,
+                           @RequestParam(name = "to_currency", defaultValue = "RUB") String toCurrency,
+                           @RequestParam(name = "value") Double value,
+                           @RequestParam(name = "to_login") String toLogin,
+                           RedirectAttributes redirectAttributes) {
+
+
+        TransferDto transferDto = TransferDto.builder()
+                .to(toLogin)
+                .from(login)
+                .value(value)
+                .build();
+
+
+        transferClient.transfer(transferDto);
 
         return "redirect:/main";
     }

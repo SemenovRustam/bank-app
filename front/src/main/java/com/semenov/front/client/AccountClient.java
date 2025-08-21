@@ -16,7 +16,7 @@ public class AccountClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${client.account.url}") // Пример: http://localhost:8081 или http://account-service
+    @Value("${client.account.url}")
     private String accountServiceUrl;
 
     public void createUserAccount(UserAccountDto dto) {
