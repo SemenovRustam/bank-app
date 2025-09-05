@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: transfer
+
+client:
+  account:
+    url: ${ACCOUNT_SERVICE_URL:http://account:8080}

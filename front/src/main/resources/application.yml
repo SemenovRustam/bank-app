@@ -23,8 +23,21 @@ spring:
     liquibase:
       default-schema: fron
       enabled: true
+  cloud:
+    consul:
+      host: consul
+      port: 8500
 
-  
+
 client:
   account:
     url: ${ACCOUNT_SERVICE_URL:http://account:8080}
+  cash:
+    url: ${CASH_SERVICE_URL:http://cash:8080}
+  transfer:
+    url: ${TRANSFER_SERVICE_URL:http://trasnfer:8080}
+  exchange:
+    url: ${EXCHANGE_SERVICE_URL:http://exchange:8080}
+
+server:
+  forward-headers-strategy: framework

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class UserAccountDto {
     private String login;
     private String name;
+    private String password;
     private LocalDate birthdate;
     private String currency;
     private BigDecimal initialValue;

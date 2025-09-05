@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: cash
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank-app}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+  cloud:
+    consul:
+      host: consul
+      port: 8500
+
+server:
+  port: 8080
+
+client:
+  account:
+    url: ${ACCOUNT_SERVICE_URL:http://account:8080}
+  notifications:
+    url: ${NOTIFICATIONS_SERVICE_URL:http://notifications:8080}

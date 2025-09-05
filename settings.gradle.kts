@@ -1,2 +1,10 @@
 rootProject.name = "bank-app"
-include("front", "account", "gateway")
+include("front")
+include("account")
+include("gateway")
+include("cash")
+include("notifications")
+include("transfer")
+include("exchange")
+include("exchange-generator")
+include("blocker")

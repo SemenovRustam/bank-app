@@ -1,6 +1,5 @@
 package com.semenov.account.controller;
 
-import com.semenov.account.dto.Currency;
 import com.semenov.account.dto.UserAccountDto;
 import com.semenov.account.entity.Account;
 import com.semenov.account.entity.User;
@@ -23,7 +22,7 @@ public class UserApiController {
 
     @PostMapping
     public ResponseEntity<?> createUserWithAccount(@RequestBody UserAccountDto dto) {
-        User user = userService.createUser(dto.getLogin(), dto.getName(), dto.getBirthdate());
+        User user = userService.createUser(dto.getLogin(), dto.getName(), dto.getPassword(), dto.getBirthdate());
         Account account = accountService.createAccount(
                 user.getId(),
                 dto.getCurrency(),

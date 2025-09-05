@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "users")
+@Builder
 public class User {
 
     @Id
@@ -32,6 +34,9 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String password;
 
     private LocalDate birthdate;
 

@@ -1,4 +1,15 @@
 services:
+  consul:
+    image: hashicorp/consul:latest
+    container_name: consul
+    ports:
+      - '8500:8500'  # UI и API
+    networks:
+      - app-net
+      - keycloak_default
+    logging:
+      driver: "none"
+
   front:
     container_name: front
     build: front
@@ -7,13 +18,18 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      consul:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank-app
-      ACCOUNT_SERVICE_URL: http://account:8080
-
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+    networks:
+      - app-net
+      - keycloak_default  # подключаемся к сети Keycloak
 
   account:
     container_name: account
@@ -23,31 +39,91 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      consul:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank-app
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+    networks:
+      - app-net
+      - keycloak_default
 
   gateway:
     container_name: gateway
     build: gateway
     ports:
-      - '8081:8080'  # точка входа для всех внешних запросов
+      - '8081:8080'
     depends_on:
       - front
       - account
+      - consul
     environment:
-      ACCOUNT_SERVICE_URL: http://account:8080
-      FRONT_SERVICE_URL: http://front:8080
       KEYCLOAK_URL: http://keycloak:8080/realms/bankapp
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+    networks:
+      - app-net
+      - keycloak_default
+
+  notifications:
+    container_name: notifications
+    build: notifications
+    ports:
+      - '8084:8080'
+    networks:
+      - app-net
+    depends_on:
+      consul:
+        condition: service_started
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+
+  transfer:
+    container_name: transfer
+    build: transfer
+    ports:
+      - '8083:8080'
+    networks:
+      - app-net
+    depends_on:
+      consul:
+        condition: service_started
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+
+  cash:
+    container_name: cash
+    build: cash
+    ports:
+      - '8095:8080'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      consul:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank-app
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank-app
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+    networks:
+      - app-net
+      - keycloak_default
+
   postgres:
     image: postgres:latest
     environment:
       POSTGRES_DB: bank-app
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
@@ -57,37 +133,14 @@ services:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
-
-  keycloak:
-    image: quay.io/keycloak/keycloak:24.0.1
-    container_name: keycloak
-    command: start-dev
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: keycloak
-      KC_HOSTNAME_STRICT: false
-    ports:
-      - "8087:8080"
-    depends_on:
-      - keycloak-db
-    volumes:
-      - .keycloak/realm-export.json:/tmp/realm-export.json:ro
-
-    keycloak-db:
-      image: postgres:16
-      container_name: keycloak-db
-      environment:
-        POSTGRES_DB: keycloak
-        POSTGRES_USER: keycloak
-        POSTGRES_PASSWORD: keycloak
-      volumes:
-        - keycloak-data:/var/lib/postgresql/data
-
+    networks:
+      - app-net
 
 volumes:
   pgdata:
-  keycloak-data:
+
+networks:
+  app-net:
+    driver: bridge
+  keycloak_default:
+    external: true
