@@ -7,7 +7,7 @@ image:
 
 service:
   type: ClusterIP
-  port: 8089
+  port: 8084
 
 ingress:
   enabled: false
@@ -25,14 +25,14 @@ resources: {}
 readinessProbe:
   httpGet:
     path: /actuator/health
-    port: 8089
+    port: 8084
   initialDelaySeconds: 30
   periodSeconds: 10
 
 livenessProbe:
   httpGet:
     path: /actuator/health
-    port: 8089
+    port: 8084
   initialDelaySeconds: 30
   periodSeconds: 20
 

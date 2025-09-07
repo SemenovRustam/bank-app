@@ -98,17 +98,17 @@ exchange:
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
-    port: 8084
+    port: 8086
   livenessProbe:
     httpGet:
       path: /actuator/health/liveness
-      port: 8084
+      port: 8086
     initialDelaySeconds: 10
     periodSeconds: 10
   readinessProbe:
     httpGet:
       path: /actuator/health/readiness
-      port: 8084
+      port: 8086
     initialDelaySeconds: 5
     periodSeconds: 5
 
@@ -164,13 +164,13 @@ front:
   livenessProbe:
     httpGet:
       path: /actuator/health/liveness
-      port: 8085
+      port: 8080
     initialDelaySeconds: 10
     periodSeconds: 10
   readinessProbe:
     httpGet:
       path: /actuator/health/readiness
-      port: 8085
+      port: 8080
     initialDelaySeconds: 5
     periodSeconds: 5
 

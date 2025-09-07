@@ -12,10 +12,20 @@ spring:
 #      port: 8500
 
 server:
-  port: 8080
+  port: 8095
 
 client:
   account:
     url: ${ACCOUNT_SERVICE_URL:http://account:8080}
   notifications:
     url: ${NOTIFICATIONS_SERVICE_URL:http://notifications:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
+

@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    environment {
+        SHARED_REPO = '../shared/bankapp' // рабочая папка на jenkins
+        IMAGE_NAME = "keycloak" // название образа
+    }
+
+    stages {
+        stage('Get from github') {
+            steps {
+                dir("${SHARED_REPO}") {
+                    echo 'get'
+                    git branch: 'helm-and-jenkins', url: 'https://github.com/springRill/bankapp.git'
+                }
+            }
+        }
+
+        stage('Deploy Keycloak') {
+            steps {
+                dir("${SHARED_REPO}/bank-app/charts/${IMAGE_NAME}") {
+                    sh """
+                    helm upgrade --install bank-app-keycloak . \
+                      --namespace default \
+                      --create-namespace
+                    """
+                }
+            }
+        }
+    }
+
+}
