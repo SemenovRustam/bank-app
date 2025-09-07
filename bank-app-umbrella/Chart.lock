@@ -1,0 +1,33 @@
+dependencies:
+- name: keycloak
+  repository: file://./charts/keycloak
+  version: 0.1.0
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 12.12.10
+- name: exchange
+  repository: file://./charts/exchange
+  version: 0.1.0
+- name: exchange-generator
+  repository: file://./charts/exchange-generator
+  version: 0.1.0
+- name: blocker
+  repository: file://./charts/blocker
+  version: 0.1.0
+- name: notifications
+  repository: file://./charts/notifications
+  version: 0.1.0
+- name: transfer
+  repository: file://./charts/transfer
+  version: 0.1.0
+- name: cash
+  repository: file://./charts/cash
+  version: 0.1.0
+- name: front
+  repository: file://./charts/front
+  version: 0.1.0
+- name: account
+  repository: file://./charts/account
+  version: 0.1.0
+digest: sha256:72b5d62e43c90fa4302193050a27d7ce711e1bd5dd7a0a998ca85e0df49020e7
+generated: "2025-09-06T19:54:56.126795+03:00"
