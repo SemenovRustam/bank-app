@@ -7,7 +7,6 @@ image:
 
 service:
   type: ClusterIP
-  clusterIP: None
   port: 8080
   targetPort: 8080
 
@@ -21,17 +20,17 @@ resources: {}
 
 readinessProbe:
   httpGet:
-    path: /
+    path: /health/ready
     port: 8080
-  initialDelaySeconds: 120
+  initialDelaySeconds: 20
   periodSeconds: 10
 
 livenessProbe:
   httpGet:
-    path: /
+    path: /health/live
     port: 8080
-  initialDelaySeconds: 120
-  periodSeconds: 10
+  initialDelaySeconds: 30
+  periodSeconds: 15
 
 command:
   - "/opt/keycloak/bin/kc.sh"
@@ -40,11 +39,16 @@ command:
   - "--hostname-strict=false"
   - "--import-realm"
 
+env:
+  - name: KC_BOOTSTRAP_ADMIN_USERNAME
+    value: "admin"
+  - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+    value: "admin"
+
 volumeMounts:
   - name: realm-import-volume
-    mountPath: /opt/keycloak/data/import/bank-realm.json
-    subPath: bank-realm.json
-
+    mountPath: /opt/keycloak/data/import
+    # монтируем директорию, а не файл
 volumes:
   - name: realm-import-volume
     configMap:
@@ -53,4 +57,3 @@ volumes:
 serviceAccount:
   create: true
   name: ""
-
