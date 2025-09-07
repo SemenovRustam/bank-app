@@ -29,7 +29,8 @@ extra["springCloudVersion"] = "2025.0.0"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+//	implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
