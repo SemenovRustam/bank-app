@@ -3,7 +3,7 @@ spring:
     name: front
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank-app}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:admin}
   liquibase:
@@ -48,3 +48,7 @@ client:
     url: ${TRANSFER_SERVICE_URL:http://transfer:8080}
   exchange:
     url: ${EXCHANGE_SERVICE_URL:http://exchange:8080}
+
+logging:
+  level:
+    liquibase: DEBUG

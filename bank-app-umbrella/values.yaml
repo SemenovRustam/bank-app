@@ -1,10 +1,10 @@
 global:
-#  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://bank-app-keycloak:8080/realms/bank"
-#  SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI: "http://bank-app-keycloak:8080/realms/bank"
+#  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://bank-keycloak:8080/realms/bank"
+#  SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI: "http://bank-keycloak:8080/realms/bank"
 
   KEYCLOAK_URL: "http://bank-app-umbrella-keycloak:8080/realms/bankapp"
-  ACCOUNT_SERVICE_URL: "http://bank-app-umbrella-account:8080"
-  FRONT_SERVICE_URL: "http://bank-app-umbrella-front:8080"
+  ACCOUNT_SERVICE_URL: "http://bank-umbrella-account:8080"
+  FRONT_SERVICE_URL: "http://bank-umbrella-front:8080"
   SPRING_DATASOURCE_URL: "jdbc:postgresql://bank-app-umbrella-postgresql:5432/bank"
   SPRING_DATASOURCE_USERNAME: "postgres"
   SPRING_DATASOURCE_PASSWORD: "admin"
@@ -206,11 +206,11 @@ gateway:
     periodSeconds: 10
   env:
     - name: KEYCLOAK_URL
-      value: "http://bank-app-keycloak:8080/realms/bankapp"
+      value: "http://bank-keycloak:8080/realms/bankapp"
     - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-      value: "http://bank-app-keycloak:8080/realms/bankapp"
+      value: "http://bank-keycloak:8080/realms/bankapp"
     - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
-      value: "http://bank-app-keycloak:8080/realms/bankapp"
+      value: "http://bank-keycloak:8080/realms/bankapp"
 
 keycloak:
   replicaCount: 1

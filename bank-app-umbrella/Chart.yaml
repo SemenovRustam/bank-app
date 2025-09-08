@@ -1,5 +1,5 @@
 apiVersion: v2
-name: bank-app-umbrella
+name: bank-umbrella
 description: Umbrella chart for bank app
 type: application
 version: 0.1.0

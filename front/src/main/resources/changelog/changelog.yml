@@ -1,3 +1,3 @@
 databaseChangeLog:
   - include:
-      file: changelog/сhanges/1-init.sql
+      file: changelog/changes/1-init.sql

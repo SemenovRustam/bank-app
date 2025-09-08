@@ -3,9 +3,9 @@ spring:
     name: account
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank-app}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank-}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
 
   jpa:
     properties:
@@ -16,9 +16,9 @@ spring:
       default-schema: account_schema
   liquibase:
     enabled: true
-    url: ${SPRING_LIQUIBASE_URL:jdbc:postgresql://localhost:5432/bank-app}
+    url: ${SPRING_LIQUIBASE_URL:jdbc:postgresql://localhost:5432/bank}
     user: postgres
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
     change-log: classpath:db/changelog/changelog.yml
 #  cloud:
 #    consul:

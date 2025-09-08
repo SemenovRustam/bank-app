@@ -4,4 +4,4 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8087/realms/bank-app
+            issuer-uri: http://localhost:8087/realms/bank

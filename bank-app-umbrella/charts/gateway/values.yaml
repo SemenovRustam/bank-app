@@ -17,10 +17,10 @@ autoscaling:
 
 resources: {}
 
-initContainers:
-  - name: wait-for-keycloak
-    image: curlimages/curl:8.6.0
-    command: ["sh", "-c", "until curl -sf http://bank-app-umbrella-keycloak:8080/realms/bankapp/.well-known/openid-configuration; do echo waiting for keycloak; sleep 5; done"]
+#initContainers:
+#  - name: wait-for-keycloak
+#    image: curlimages/curl:8.6.0
+#    command: ["sh", "-c", "until curl -sf http://bank-umbrella-keycloak:8080/realms/bankapp/.well-known/openid-configuration; do echo waiting for keycloak; sleep 5; done"]
 
 readinessProbe:
   httpGet:
@@ -43,8 +43,8 @@ serviceAccount:
 
 env:
   - name: KEYCLOAK_URL
-    value: "http://bank-app-keycloak:8080/realms/bankapp"
+    value: "http://bank-keycloak:8080/realms/bankapp"
   - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-    value: "http://bank-app-keycloak:8080/realms/bankapp"
+    value: "http://bank-keycloak:8080/realms/bankapp"
   - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
-    value: "http://bank-app-keycloak:8080/realms/bankapp"
+    value: "http://bank-keycloak:8080/realms/bankapp"

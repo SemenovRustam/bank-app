@@ -17,10 +17,10 @@ autoscaling:
 
 resources: {}
 
-initContainers:
-  - name: wait-for-postgres
-    image: busybox:1.36
-    command: ['sh', '-c', 'until nc -z bank-app-umbrella-postgresql 5432; do echo "Waiting for PostgreSQL..."; sleep 3; done']
+#initContainers:
+#  - name: wait-for-postgres
+#    image: busybox:1.36
+#    command: ['sh', '-c', 'until nc -z bank-umbrella-postgresql 5432; do echo "Waiting for PostgreSQL..."; sleep 3; done']
 
 readinessProbe:
   httpGet:
