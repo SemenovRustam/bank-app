@@ -27,6 +27,17 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:15
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h bank-app-umbrella-postgresql -p 5432 -U postgres; do
+                echo "Waiting for PostgreSQL..."
+                sleep 5
+              done
       serviceAccountName: {{ include "front.serviceAccountName" . }}
       {{- with .Values.podSecurityContext }}
       securityContext:

@@ -9,6 +9,8 @@ global:
   SPRING_DATASOURCE_USERNAME: "postgres"
   SPRING_DATASOURCE_PASSWORD: "admin"
   SPRING_LIQUIBASE_URL: "jdbc:postgresql://bank-app-umbrella-postgresql:5432/bank"
+  SPRING_LIQUIBASE_PASSWORD: "admin"
+
 
 postgresql:
   enabled: true
@@ -153,13 +155,13 @@ front:
     port: 8085
   env:
     - name: SPRING_DATASOURCE_URL
-      value: jdbc:postgresql://umbrella-chart-postgresql:5432/bank
+      value: jdbc:postgresql://bank-app-umbrella-postgresql:5432/bank
     - name: SPRING_DATASOURCE_USERNAME
       value: postgres
     - name: SPRING_DATASOURCE_PASSWORD
       value: admin
     - name: SPRING_LIQUIBASE_URL
-      value: jdbc:postgresql://umbrella-chart-postgresql:5432/bank
+      value: jdbc:postgresql://bank-app-umbrella-postgresql:5432/bank
   ingress:
     enabled: true
     className: "nginx"
