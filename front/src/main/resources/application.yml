@@ -41,6 +41,7 @@ client:
 
 server:
   forward-headers-strategy: framework
+  port: 8085
 
 management:
   endpoints:

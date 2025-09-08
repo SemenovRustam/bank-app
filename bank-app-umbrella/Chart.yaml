@@ -40,11 +40,15 @@ dependencies:
     version: "0.1.0"
     repository: "file://./charts/cash"
 
-#  - name: front
-#    version: "0.1.0"
-#    repository: "file://./charts/front"
+  - name: front
+    version: "0.1.0"
+    repository: "file://./charts/front"
 #
 #  - name: account
 #    version: "0.1.0"
 #    repository: "file://./charts/account"
+
+  - name: gateway
+    version: "0.1.0"
+    repository: "file://./charts/gateway"
 

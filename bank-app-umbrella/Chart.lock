@@ -8,5 +8,11 @@ dependencies:
 - name: cash
   repository: file://./charts/cash
   version: 0.1.0
-digest: sha256:d57e4e811bfaffb0079c10badb611516f6162fe20dcfba8a1a2048c3f0f2ea9d
-generated: "2025-09-07T22:57:00.478385+03:00"
+- name: front
+  repository: file://./charts/front
+  version: 0.1.0
+- name: gateway
+  repository: file://./charts/gateway
+  version: 0.1.0
+digest: sha256:aec4f35001499361a72bc6c4cada26a23debc547e7ca9aa234e09357e254a5eb
+generated: "2025-09-08T11:12:22.541544+03:00"
