@@ -23,126 +23,126 @@ postgresql:
       enabled: true
       size: 1Gi
 
-#account:
+account:
+  replicaCount: 1
+  image:
+    repository: account
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8090
+  env:
+    - name: SPRING_DATASOURCE_URL
+      value: jdbc:postgresql://umbrella-chart-postgresql:5432/bank
+    - name: SPRING_DATASOURCE_USERNAME
+      value: postgres
+    - name: SPRING_DATASOURCE_PASSWORD
+      value: admin
+    - name: SPRING_LIQUIBASE_URL
+      value: jdbc:postgresql://umbrella-chart-postgresql:5432/bank
+    - name: KEYCLOAK_URL
+      value: http://umbrella-chart-keycloak:8080
+  livenessProbe:
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8090
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /actuator/health/readiness
+      port: 8090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+
+#blocker:
 #  replicaCount: 1
 #  image:
-#    repository: account
+#    repository: blocker
 #    tag: latest
 #    pullPolicy: IfNotPresent
 #  service:
 #    type: ClusterIP
-#    port: 8090
-#  env:
-#    - name: SPRING_DATASOURCE_URL
-#      value: jdbc:postgresql://umbrella-chart-postgresql:5432/bank
-#    - name: SPRING_DATASOURCE_USERNAME
-#      value: postgres
-#    - name: SPRING_DATASOURCE_PASSWORD
-#      value: admin
-#    - name: SPRING_LIQUIBASE_URL
-#      value: jdbc:postgresql://umbrella-chart-postgresql:5432/bank
-#    - name: KEYCLOAK_URL
-#      value: http://umbrella-chart-keycloak:8080
+#    port: 8087
 #  livenessProbe:
 #    httpGet:
 #      path: /actuator/health/liveness
-#      port: 8090
+#      port: 8087
 #    initialDelaySeconds: 10
 #    periodSeconds: 10
 #  readinessProbe:
 #    httpGet:
 #      path: /actuator/health/readiness
-#      port: 8090
+#      port: 8087
 #    initialDelaySeconds: 5
 #    periodSeconds: 5
 
-blocker:
-  replicaCount: 1
-  image:
-    repository: blocker
-    tag: latest
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 8087
-  livenessProbe:
-    httpGet:
-      path: /actuator/health/liveness
-      port: 8087
-    initialDelaySeconds: 10
-    periodSeconds: 10
-  readinessProbe:
-    httpGet:
-      path: /actuator/health/readiness
-      port: 8087
-    initialDelaySeconds: 5
-    periodSeconds: 5
+#cash:
+#  replicaCount: 1
+#  image:
+#    repository: cash
+#    tag: latest
+#    pullPolicy: IfNotPresent
+#  service:
+#    type: ClusterIP
+#    port: 8095
+#  livenessProbe:
+#    httpGet:
+#      path: /actuator/health/liveness
+#      port: 8095
+#    initialDelaySeconds: 10
+#    periodSeconds: 10
+#  readinessProbe:
+#    httpGet:
+#      path: /actuator/health/readiness
+#      port: 8095
+#    initialDelaySeconds: 5
+#    periodSeconds: 5
 
-cash:
-  replicaCount: 1
-  image:
-    repository: cash
-    tag: latest
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 8095
-  livenessProbe:
-    httpGet:
-      path: /actuator/health/liveness
-      port: 8095
-    initialDelaySeconds: 10
-    periodSeconds: 10
-  readinessProbe:
-    httpGet:
-      path: /actuator/health/readiness
-      port: 8095
-    initialDelaySeconds: 5
-    periodSeconds: 5
+#exchange:
+#  replicaCount: 1
+#  image:
+#    repository: exchange
+#    tag: latest
+#    pullPolicy: IfNotPresent
+#  service:
+#    type: ClusterIP
+#    port: 8086
+#  livenessProbe:
+#    httpGet:
+#      path: /actuator/health/liveness
+#      port: 8086
+#    initialDelaySeconds: 10
+#    periodSeconds: 10
+#  readinessProbe:
+#    httpGet:
+#      path: /actuator/health/readiness
+#      port: 8086
+#    initialDelaySeconds: 5
+#    periodSeconds: 5
 
-exchange:
-  replicaCount: 1
-  image:
-    repository: exchange
-    tag: latest
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 8086
-  livenessProbe:
-    httpGet:
-      path: /actuator/health/liveness
-      port: 8086
-    initialDelaySeconds: 10
-    periodSeconds: 10
-  readinessProbe:
-    httpGet:
-      path: /actuator/health/readiness
-      port: 8086
-    initialDelaySeconds: 5
-    periodSeconds: 5
-
-exchange-generator:
-  replicaCount: 1
-  image:
-    repository: exchange-generator
-    tag: latest
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 8088
-  livenessProbe:
-    httpGet:
-      path: /actuator/health/liveness
-      port: 8085
-    initialDelaySeconds: 10
-    periodSeconds: 10
-  readinessProbe:
-    httpGet:
-      path: /actuator/health/readiness
-      port: 8085
-    initialDelaySeconds: 5
-    periodSeconds: 5
+#exchange-generator:
+#  replicaCount: 1
+#  image:
+#    repository: exchange-generator
+#    tag: latest
+#    pullPolicy: IfNotPresent
+#  service:
+#    type: ClusterIP
+#    port: 8088
+#  livenessProbe:
+#    httpGet:
+#      path: /actuator/health/liveness
+#      port: 8085
+#    initialDelaySeconds: 10
+#    periodSeconds: 10
+#  readinessProbe:
+#    httpGet:
+#      path: /actuator/health/readiness
+#      port: 8085
+#    initialDelaySeconds: 5
+#    periodSeconds: 5
 
 front:
   replicaCount: 1
@@ -281,24 +281,24 @@ notifications:
     initialDelaySeconds: 5
     periodSeconds: 5
 
-transfer:
-  replicaCount: 1
-  image:
-    repository: transfer
-    tag: latest
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 8083
-  livenessProbe:
-    httpGet:
-      path: /actuator/health/liveness
-      port: 8083
-    initialDelaySeconds: 10
-    periodSeconds: 10
-  readinessProbe:
-    httpGet:
-      path: /actuator/health/readiness
-      port: 8083
-    initialDelaySeconds: 5
-    periodSeconds: 5
+#transfer:
+#  replicaCount: 1
+#  image:
+#    repository: transfer
+#    tag: latest
+#    pullPolicy: IfNotPresent
+#  service:
+#    type: ClusterIP
+#    port: 8083
+#  livenessProbe:
+#    httpGet:
+#      path: /actuator/health/liveness
+#      port: 8083
+#    initialDelaySeconds: 10
+#    periodSeconds: 10
+#  readinessProbe:
+#    httpGet:
+#      path: /actuator/health/readiness
+#      port: 8083
+#    initialDelaySeconds: 5
+#    periodSeconds: 5

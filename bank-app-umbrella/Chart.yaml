@@ -16,29 +16,29 @@ dependencies:
     condition: postgresql.enabled
 
 
-  - name: exchange
-    version: "0.1.0"
-    repository: "file://./charts/exchange"
+#  - name: exchange
+#    version: "0.1.0"
+#    repository: "file://./charts/exchange"
 
-  - name: exchange-generator
-    version: "0.1.0"
-    repository: "file://./charts/exchange-generator"
+#  - name: exchange-generator
+#    version: "0.1.0"
+#    repository: "file://./charts/exchange-generator"
 
-  - name: blocker
-    version: "0.1.0"
-    repository: "file://./charts/blocker"
+#  - name: blocker
+#    version: "0.1.0"
+#    repository: "file://./charts/blocker"
 
-  - name: notifications
-    version: "0.1.0"
-    repository: "file://./charts/notifications"
+#  - name: notifications
+#    version: "0.1.0"
+#    repository: "file://./charts/notifications"
 
-  - name: transfer
-    version: "0.1.0"
-    repository: "file://./charts/transfer"
+#  - name: transfer
+#    version: "0.1.0"
+#    repository: "file://./charts/transfer"
 
-  - name: cash
-    version: "0.1.0"
-    repository: "file://./charts/cash"
+#  - name: cash
+#    version: "0.1.0"
+#    repository: "file://./charts/cash"
 
   - name: front
     version: "0.1.0"

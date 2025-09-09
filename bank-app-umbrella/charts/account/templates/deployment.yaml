@@ -32,6 +32,17 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:15
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h bank-app-umbrella-postgresql -p 5432 -U postgres; do
+                echo "Waiting for PostgreSQL..."
+                sleep 5
+              done
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -39,6 +50,9 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          envFrom:
+            - configMapRef:
+                name: account-config-map
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
