@@ -1,14 +1,14 @@
 services:
-  consul:
-    image: hashicorp/consul:latest
-    container_name: consul
-    ports:
-      - '8500:8500'  # UI и API
-    networks:
-      - app-net
-      - keycloak_default
-    logging:
-      driver: "none"
+#  consul:
+#    image: hashicorp/consul:latest
+#    container_name: consul
+#    ports:
+#      - '8500:8500'  # UI и API
+#    networks:
+#      - app-net
+#      - keycloak_default
+#    logging:
+#      driver: "none"
 
   front:
     container_name: front
