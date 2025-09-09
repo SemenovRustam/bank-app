@@ -1,0 +1,37 @@
+replicaCount: 1
+
+image:
+  repository: exchange
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8086
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+
+resources: {}
+
+readinessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8086
+  initialDelaySeconds: 20
+  periodSeconds: 10
+
+livenessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8086
+  initialDelaySeconds: 20
+  periodSeconds: 20
+
+serviceAccount:
+  create: false
+  name: default
+  automount: false
