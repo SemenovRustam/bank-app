@@ -1,0 +1,49 @@
+replicaCount: 1
+
+image:
+  repository: account
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8090
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+
+resources: {}
+
+
+
+readinessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8090
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+livenessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8090
+  initialDelaySeconds: 30
+  periodSeconds: 20
+
+serviceAccount:
+  create: false
+  name: default
+  automount: false
+
+env:
+  - name: SPRING_DATASOURCE_URL
+    value: jdbc:postgresql://bank-app-umbrella-postgresql:5432/bank
+  - name: SPRING_DATASOURCE_USERNAME
+    value: postgres
+  - name: SPRING_DATASOURCE_PASSWORD
+    value: admin
+  - name: SPRING_LIQUIBASE_URL
+    value: jdbc:postgresql://bank-app-umbrella-postgresql:5432/bank

@@ -1,7 +1,10 @@
 spring:
   application:
     name: notifications
-  cloud:
-    consul:
-      host: consul
-      port: 8500
+#  cloud:
+#    consul:
+#      host: consul
+#      port: 8500
+
+server:
+  port: 8084

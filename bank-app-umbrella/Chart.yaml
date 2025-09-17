@@ -1,0 +1,54 @@
+apiVersion: v2
+name: bank-umbrella
+description: Umbrella chart for bank app
+type: application
+version: 0.1.0
+
+dependencies:
+
+  - name: keycloak
+    version: "0.1.0"
+    repository: "file://./charts/keycloak"
+
+  - name: postgresql
+    version: 12.12.10
+    repository: "oci://registry-1.docker.io/bitnamicharts"
+    condition: postgresql.enabled
+
+
+#  - name: exchange
+#    version: "0.1.0"
+#    repository: "file://./charts/exchange"
+
+#  - name: exchange-generator
+#    version: "0.1.0"
+#    repository: "file://./charts/exchange-generator"
+
+#  - name: blocker
+#    version: "0.1.0"
+#    repository: "file://./charts/blocker"
+
+#  - name: notifications
+#    version: "0.1.0"
+#    repository: "file://./charts/notifications"
+
+#  - name: transfer
+#    version: "0.1.0"
+#    repository: "file://./charts/transfer"
+
+#  - name: cash
+#    version: "0.1.0"
+#    repository: "file://./charts/cash"
+
+  - name: front
+    version: "0.1.0"
+    repository: "file://./charts/front"
+
+  - name: account
+    version: "0.1.0"
+    repository: "file://./charts/account"
+
+  - name: gateway
+    version: "0.1.0"
+    repository: "file://./charts/gateway"
+

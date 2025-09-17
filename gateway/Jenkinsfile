@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    environment {
+        GRADLE_OPTS = '-Dorg.gradle.daemon=false'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh './gradlew clean build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t gateway:latest .'
+            }
+        }
+
+        stage('Deploy to Test') {
+            steps {
+                echo 'Здесь можно вызвать Helm или kubectl для деплоя в тестовый namespace'
+            }
+        }
+    }
+}

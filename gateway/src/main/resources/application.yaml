@@ -44,3 +44,15 @@ logging:
   level:
     org.springframework.cloud.gateway: DEBUG
     reactor.netty.http.server: DEBUG
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
+

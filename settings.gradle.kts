@@ -1,4 +1,4 @@
-rootProject.name = "bank-app"
+rootProject.name = "bank"
 include("front")
 include("account")
 include("gateway")

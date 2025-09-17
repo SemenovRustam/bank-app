@@ -1,33 +1,43 @@
 spring:
   application:
     name: front
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+  liquibase:
+    enabled: true
+    #    default-schema: front_schema
+    change-log: classpath:changelog/changelog.yml
+    user: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+  jpa:
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+#        hibernate.default_schema: front_schema
+    show-sql: true
+
   thymeleaf:
     enabled: true
     prefix: classpath:/templates/
     suffix: .html
     cache: false
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bank-app}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-      hibernate:
-        default_schema: front_schema
-    liquibase:
-      default-schema: fron
-      enabled: true
-  cloud:
-    consul:
-      host: consul
-      port: 8500
+server:
+  port: 8085
+  forward-headers-strategy: framework
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
 
 client:
   account:
@@ -35,9 +45,10 @@ client:
   cash:
     url: ${CASH_SERVICE_URL:http://cash:8080}
   transfer:
-    url: ${TRANSFER_SERVICE_URL:http://trasnfer:8080}
+    url: ${TRANSFER_SERVICE_URL:http://transfer:8080}
   exchange:
     url: ${EXCHANGE_SERVICE_URL:http://exchange:8080}
 
-server:
-  forward-headers-strategy: framework
+logging:
+  level:
+    liquibase: DEBUG

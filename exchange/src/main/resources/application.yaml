@@ -5,3 +5,14 @@ spring:
 client:
   exchange-generator:
     url: ${EXCHANGE_GENERATOR_SERVICE_URL:http://exchange-generator:8080}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8086

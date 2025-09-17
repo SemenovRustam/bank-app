@@ -1,0 +1,18 @@
+dependencies:
+- name: keycloak
+  repository: file://./charts/keycloak
+  version: 0.1.0
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 12.12.10
+- name: front
+  repository: file://./charts/front
+  version: 0.1.0
+- name: account
+  repository: file://./charts/account
+  version: 0.1.0
+- name: gateway
+  repository: file://./charts/gateway
+  version: 0.1.0
+digest: sha256:65fdef4ec866cde0b57ddb73cf8b78df6f0d955c1f5e3b847bb41a342ffee8cf
+generated: "2025-09-09T14:14:15.886398+03:00"

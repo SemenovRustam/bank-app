@@ -5,3 +5,6 @@ spring:
 client:
   account:
     url: ${ACCOUNT_SERVICE_URL:http://account:8080}
+
+server:
+  port: 8083
