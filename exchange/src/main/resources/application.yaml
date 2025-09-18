@@ -1,6 +1,21 @@
 spring:
   application:
     name: exchange
+  kafka:
+    admin:
+      auto-create: true
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: latest
+      enable-auto-commit: false
+      bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      group-id: exchange-generator
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring.json.value.default.type: com.semenov.exchange.dto.RatesWrapper
+#      auto-offset-reset: latest
 
 client:
   exchange-generator:
