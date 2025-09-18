@@ -1,5 +1,6 @@
 package com.semenov.exchangegenerator.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.semenov.exchangegenerator.dto.Currency;
 import com.semenov.exchangegenerator.dto.RatesDto;
 import com.semenov.exchangegenerator.dto.RatesWrapper;
@@ -17,9 +18,10 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 @RequiredArgsConstructor
 public class CurrencyGeneratorService {
-
     private final CurrencyGeneratorProducer producer;
     private final TestProducer testProducer;
+    private final ObjectMapper objectMapper;
+
     private final List<RatesDto> rates = new ArrayList<>();
 
     public List<RatesDto> getRates() {
@@ -48,8 +50,14 @@ public class CurrencyGeneratorService {
         rates.add(usd);
         rates.add(cny);
         RatesWrapper ratesWrapper = new RatesWrapper(rates);
-//        producer.sendRates(ratesWrapper);
-        testProducer.test("Hello from kafka");
+        String message = null;
+        try {
+            message = objectMapper.writeValueAsString(ratesWrapper);
+        } catch (Exception ex) {
+
+        }
+
+        producer.sendRates(message);
         log.info("Current rates {}", rates);
     }
 }

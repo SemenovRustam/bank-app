@@ -8,18 +8,16 @@ import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class CurrencyGeneratorProducer {
 
-    private final KafkaTemplate<String, RatesWrapper> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     private final ObjectMapper objectMapper;
 
-//    public void sendRates(RatesWrapper message) {
-//        kafkaTemplate.send("rates", message);
-//    }
+    public void sendRates(String message) {
+        kafkaTemplate.send("rates", message);
+    }
 }

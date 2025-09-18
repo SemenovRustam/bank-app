@@ -1,5 +1,6 @@
 package com.semenov.exchange.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.semenov.exchange.client.ExchangeGeneratorClient;
 import com.semenov.exchange.dto.RatesDto;
 import com.semenov.exchange.dto.RatesWrapper;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ExchangeService {
 
     private final ExchangeGeneratorClient exchangeGeneratorClient;
+    private final ObjectMapper mapper;
     private final List<RatesDto> rates = new ArrayList<>();
 
     public List<RatesDto> getRates() {
@@ -24,14 +26,14 @@ public class ExchangeService {
     }
 
     @KafkaListener(topics = "rates", groupId = "exchange-generator")
-    public void consumeRates(RatesWrapper ratesDto) {
+    public void consumeRates(String ratesDto) {
         rates.clear();
-        rates.addAll(ratesDto.getRatesDto());
-        log.info("Update rates: {}", rates);
-    }
+        try {
+            rates.addAll(mapper.readValue(ratesDto, RatesWrapper.class).getRatesDto());
+        } catch (Exception ex) {
+            log.error("Error while parse json {}", ratesDto);
+        }
 
-    @KafkaListener(topics = "test", groupId = "test")
-    public void test(String message) {
-        log.info("Find test message: {}", message);
+        log.info("Update rates: {}", rates);
     }
 }
