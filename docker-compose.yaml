@@ -51,7 +51,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank
     networks:
       - app-net
@@ -78,6 +78,8 @@ services:
       - '8084:8080'
     networks:
       - app-net
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
   exchange-generator:
     container_name:  exchange-generator
@@ -118,8 +120,9 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:
       - app-net
       - keycloak_default

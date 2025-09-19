@@ -1,10 +1,11 @@
 spring:
   application:
     name: notifications
-#  cloud:
-#    consul:
-#      host: consul
-#      port: 8500
+  kafka:
+    producer:
+      bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 server:
   port: 8084

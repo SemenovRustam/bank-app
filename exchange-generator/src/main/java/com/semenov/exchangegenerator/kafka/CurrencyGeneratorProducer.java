@@ -15,8 +15,6 @@ public class CurrencyGeneratorProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    private final ObjectMapper objectMapper;
-
     public void sendRates(String message) {
         kafkaTemplate.send("rates", message);
     }
