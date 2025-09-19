@@ -35,3 +35,13 @@ serviceAccount:
   create: false
   name: default
   automount: false
+
+env:
+  - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+    value: "bank-app-umbrella-kafka:9092"
+  - name: SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS
+    value: "bank-app-umbrella-kafka:9092"
+  - name: SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS
+    value: "bank-app-umbrella-kafka:9092"
+  - name: SPRING_KAFKA_PROPERTIES_SECURITY_PROTOCOL
+    value: "PLAINTEXT"
