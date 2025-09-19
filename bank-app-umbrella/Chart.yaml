@@ -16,13 +16,13 @@ dependencies:
     condition: postgresql.enabled
 
 
-#  - name: exchange
-#    version: "0.1.0"
-#    repository: "file://./charts/exchange"
+  - name: exchange
+    version: "0.1.0"
+    repository: "file://./charts/exchange"
 
-#  - name: exchange-generator
-#    version: "0.1.0"
-#    repository: "file://./charts/exchange-generator"
+  - name: exchange-generator
+    version: "0.1.0"
+    repository: "file://./charts/exchange-generator"
 
 #  - name: blocker
 #    version: "0.1.0"
@@ -51,4 +51,5 @@ dependencies:
   - name: gateway
     version: "0.1.0"
     repository: "file://./charts/gateway"
+
 

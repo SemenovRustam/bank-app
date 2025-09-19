@@ -5,6 +5,12 @@ dependencies:
 - name: postgresql
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 12.12.10
+- name: exchange
+  repository: file://./charts/exchange
+  version: 0.1.0
+- name: exchange-generator
+  repository: file://./charts/exchange-generator
+  version: 0.1.0
 - name: front
   repository: file://./charts/front
   version: 0.1.0
@@ -14,5 +20,5 @@ dependencies:
 - name: gateway
   repository: file://./charts/gateway
   version: 0.1.0
-digest: sha256:65fdef4ec866cde0b57ddb73cf8b78df6f0d955c1f5e3b847bb41a342ffee8cf
-generated: "2025-09-09T14:14:15.886398+03:00"
+digest: sha256:af5d2be9ffec305b9580ba786d03118cff6835998df2c58cad4a2f8709c666c9
+generated: "2025-09-19T15:15:38.514059+03:00"

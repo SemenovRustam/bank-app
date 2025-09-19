@@ -10,6 +10,9 @@ global:
   SPRING_DATASOURCE_PASSWORD: "admin"
   SPRING_LIQUIBASE_URL: "jdbc:postgresql://bank-app-umbrella-postgresql:5432/bank"
   SPRING_LIQUIBASE_PASSWORD: "admin"
+  SPRING_KAFKA_BOOTSTRAP_SERVERS: "bank-app-umbrella-kafka:9092"
+  SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: "bank-app-umbrella-kafka:9092"
+  SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: "bank-app-umbrella-kafka:9092"
 
 
 postgresql:
