@@ -1,7 +1,11 @@
 package com.semenov.exchangegenerator.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.semenov.exchangegenerator.dto.Currency;
 import com.semenov.exchangegenerator.dto.RatesDto;
+import com.semenov.exchangegenerator.dto.RatesWrapper;
+import com.semenov.exchangegenerator.kafka.CurrencyGeneratorProducer;
+import lombok.RequiredArgsConstructor;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +21,10 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 @RequiredArgsConstructor
 public class CurrencyGeneratorService {
+    private final CurrencyGeneratorProducer producer;
+    private final TestProducer testProducer;
+    private final ObjectMapper objectMapper;
+
     private final List<RatesDto> rates = new ArrayList<>();
     private final Tracer tracer;
 
@@ -52,5 +60,18 @@ public class CurrencyGeneratorService {
         } finally {
             newSpan.end(); // Завершаем span
         }
+        rates.add(rub);
+        rates.add(usd);
+        rates.add(cny);
+        RatesWrapper ratesWrapper = new RatesWrapper(rates);
+        String message = null;
+        try {
+            message = objectMapper.writeValueAsString(ratesWrapper);
+        } catch (Exception ex) {
+
+        }
+
+        producer.sendRates(message);
+        log.info("Current rates {}", rates);
     }
 }

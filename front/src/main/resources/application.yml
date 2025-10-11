@@ -52,6 +52,3 @@ client:
   exchange:
     url: ${EXCHANGE_SERVICE_URL:http://exchange:8080}
 
-logging:
-  level:
-    liquibase: DEBUG

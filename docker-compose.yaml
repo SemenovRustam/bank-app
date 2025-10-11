@@ -1,4 +1,28 @@
 services:
+  kafka:
+    image: apache/kafka:4.0.0
+    container_name: kafka
+    hostname: kafka
+    ports:
+      - "9092:9092"
+    volumes:
+      - ./kafka-data:/var/lib/kafka/data
+    environment:
+      CLUSTER_ID: "cluster-id"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:29093"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://host.docker.internal:9092"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:29093"
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "0"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+    networks:
+      - app-net
+
   front:
     container_name: front
     build: front
@@ -30,10 +54,8 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_CLOUD_CONSUL_PORT: 8500
     networks:
       - app-net
       - keycloak_default
@@ -48,8 +70,6 @@ services:
       - account
     environment:
       KEYCLOAK_URL: http://keycloak:8080/realms/bankapp
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_CLOUD_CONSUL_PORT: 8500
     networks:
       - app-net
       - keycloak_default
@@ -62,8 +82,7 @@ services:
     networks:
       - app-net
     environment:
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_CLOUD_CONSUL_PORT: 8500
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
   exchange-generator:
     container_name:  exchange-generator
@@ -73,9 +92,20 @@ services:
     networks:
       - app-net
     environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+  exchange:
+    container_name: exchange
+    build: exchange
+    ports:
+      - '8089:8080'
+    networks:
+      - app-net
+    environment:
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_CLOUD_CONSUL_PORT: 8500
       SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
   transfer:
     container_name: transfer
@@ -99,10 +129,9 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_CLOUD_CONSUL_PORT: 8500
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:
       - app-net
       - keycloak_default

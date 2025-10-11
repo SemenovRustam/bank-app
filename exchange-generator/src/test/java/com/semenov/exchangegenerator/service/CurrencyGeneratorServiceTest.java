@@ -1,39 +1,28 @@
-package com.semenov.exchangegenerator.service;
-
-import io.micrometer.tracing.Tracer;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.semenov.exchangegenerator.dto.Currency;
-import com.semenov.exchangegenerator.dto.RatesDto;
-import com.semenov.exchangegenerator.service.CurrencyGeneratorService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.semenov.exchangegenerator.dto.Currency;
-import com.semenov.exchangegenerator.dto.RatesDto;
-import com.semenov.exchangegenerator.service.CurrencyGeneratorService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+//package com.semenov.exchangegenerator.service;
+//
+//import com.semenov.exchangegenerator.dto.Currency;
+//import com.semenov.exchangegenerator.dto.RatesDto;
+//import com.semenov.exchangegenerator.kafka.CurrencyGeneratorProducer;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//
+//import java.util.List;
+//
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
+//import static org.mockito.Mockito.mock;
+//
 //class CurrencyGeneratorServiceTest {
 //
 //    private CurrencyGeneratorService service;
+//    private  CurrencyGeneratorProducer producer;
 //
-//    private Tracer tracer;
 //
 //    @BeforeEach
 //    void setUp() {
-//        service = new CurrencyGeneratorService();
+//        producer = mock(CurrencyGeneratorProducer.class); // создаём мок
+//        service = new CurrencyGeneratorService(producer);
 //    }
 //
 //    @Test
