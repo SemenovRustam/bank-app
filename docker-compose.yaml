@@ -161,34 +161,6 @@ services:
       - "9411:9411"
     networks:
       - app-net
-  kafka:
-    image: apache/kafka:4.0.0
-    container_name: kafka
-    hostname: kafka
-    ports:
-      - "9092:9092"
-    volumes:
-      - ./kafka-data:/var/lib/kafka/data
-    environment:
-      CLUSTER_ID: "cluster-id"
-      KAFKA_BROKER_ID: 1
-      KAFKA_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:29093"
-      #      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092"
-      # Слушаем на всех интерфейсах
-      #      KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:29093"
-      # Сообщаем клиентам адрес хоста
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://host.docker.internal:9092"
-      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:29093"
-      KAFKA_PROCESS_ROLES: "broker,controller"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
-      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
-
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "0"
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
-    networks:
-      - app-net
 
 volumes:
   pgdata:

@@ -1,11 +1,11 @@
 package com.semenov.exchangegenerator.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.semenov.exchangegenerator.dto.Currency;
 import com.semenov.exchangegenerator.dto.RatesDto;
 import com.semenov.exchangegenerator.dto.RatesWrapper;
 import com.semenov.exchangegenerator.kafka.CurrencyGeneratorProducer;
-import lombok.RequiredArgsConstructor;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
@@ -56,22 +56,17 @@ public class CurrencyGeneratorService {
             rates.add(rub);
             rates.add(usd);
             rates.add(cny);
+
+            RatesWrapper ratesWrapper = new RatesWrapper(rates);
+            String message = objectMapper.writeValueAsString(ratesWrapper);
+
+            producer.sendRates(message);
             log.info("Current rates {}", rates);
+        } catch (JsonProcessingException e) {
+            log.info("Error while try parse josn");
+            throw new RuntimeException(e);
         } finally {
             newSpan.end(); // Завершаем span
         }
-        rates.add(rub);
-        rates.add(usd);
-        rates.add(cny);
-        RatesWrapper ratesWrapper = new RatesWrapper(rates);
-        String message = null;
-        try {
-            message = objectMapper.writeValueAsString(ratesWrapper);
-        } catch (Exception ex) {
-
-        }
-
-        producer.sendRates(message);
-        log.info("Current rates {}", rates);
     }
 }

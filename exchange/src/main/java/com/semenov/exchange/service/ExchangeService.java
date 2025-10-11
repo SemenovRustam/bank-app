@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.semenov.exchange.client.ExchangeGeneratorClient;
 import com.semenov.exchange.dto.RatesDto;
 import com.semenov.exchange.dto.RatesWrapper;
+import io.micrometer.tracing.Span;
+import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ExchangeService {
 
     private final ExchangeGeneratorClient exchangeGeneratorClient;
+    private final Tracer tracer;
     private final ObjectMapper mapper;
     private final List<RatesDto> rates = new ArrayList<>();
 
@@ -27,13 +30,19 @@ public class ExchangeService {
 
     @KafkaListener(topics = "rates", groupId = "exchange-generator")
     public void consumeRates(String ratesDto) {
-        rates.clear();
-        try {
-            rates.addAll(mapper.readValue(ratesDto, RatesWrapper.class).getRatesDto());
-        } catch (Exception ex) {
-            log.error("Error while parse json {}", ratesDto);
-        }
+        Span newSpan = tracer.nextSpan().name("exchange-rates").start();
 
-        log.info("Update rates: {}", rates);
+        try (Tracer.SpanInScope ws = tracer.withSpan(newSpan)) {
+            rates.clear();
+            try {
+                rates.addAll(mapper.readValue(ratesDto, RatesWrapper.class).getRatesDto());
+            } catch (Exception ex) {
+                log.error("Error while parse json {}", ratesDto);
+            }
+
+            log.info("Update rates: {}", rates);
+        } finally {
+            newSpan.end();
+        }
     }
 }

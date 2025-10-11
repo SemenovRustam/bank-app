@@ -15,6 +15,7 @@ spring:
 client:
   exchange-generator:
     url: ${EXCHANGE_GENERATOR_SERVICE_URL:http://exchange-generator:8080}
+
 management:
   zipkin:
     tracing:
