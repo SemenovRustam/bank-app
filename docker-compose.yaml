@@ -1,15 +1,4 @@
 services:
-#  consul:
-#    image: hashicorp/consul:latest
-#    container_name: consul
-#    ports:
-#      - '8500:8500'  # UI и API
-#    networks:
-#      - app-net
-#      - keycloak_default
-#    logging:
-#      driver: "none"
-
   front:
     container_name: front
     build: front
@@ -18,8 +7,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      consul:
-        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_DATASOURCE_USERNAME: postgres
@@ -27,6 +14,7 @@ services:
       SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_CLOUD_CONSUL_PORT: 8500
+      SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/
     networks:
       - app-net
       - keycloak_default  # подключаемся к сети Keycloak
@@ -39,8 +27,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      consul:
-        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_DATASOURCE_USERNAME: postgres
@@ -60,7 +46,6 @@ services:
     depends_on:
       - front
       - account
-      - consul
     environment:
       KEYCLOAK_URL: http://keycloak:8080/realms/bankapp
       SPRING_CLOUD_CONSUL_HOST: consul
@@ -76,9 +61,6 @@ services:
       - '8084:8080'
     networks:
       - app-net
-    depends_on:
-      consul:
-        condition: service_started
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_CLOUD_CONSUL_PORT: 8500
@@ -90,12 +72,10 @@ services:
       - '8088:8080'
     networks:
       - app-net
-    depends_on:
-      consul:
-        condition: service_started
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_CLOUD_CONSUL_PORT: 8500
+      SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/
 
   transfer:
     container_name: transfer
@@ -104,9 +84,6 @@ services:
       - '8083:8080'
     networks:
       - app-net
-    depends_on:
-      consul:
-        condition: service_started
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_CLOUD_CONSUL_PORT: 8500
@@ -119,8 +96,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      consul:
-        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bank
       SPRING_DATASOURCE_USERNAME: postgres
@@ -147,6 +122,42 @@ services:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-net
+
+  zipkin:
+    image: openzipkin/zipkin:2.27
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - app-net
+  kafka:
+    image: apache/kafka:4.0.0
+    container_name: kafka
+    hostname: kafka
+    ports:
+      - "9092:9092"
+    volumes:
+      - ./kafka-data:/var/lib/kafka/data
+    environment:
+      CLUSTER_ID: "cluster-id"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:29093"
+      #      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092"
+      # Слушаем на всех интерфейсах
+      #      KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:29093"
+      # Сообщаем клиентам адрес хоста
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://host.docker.internal:9092"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:29093"
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "0"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
     networks:
       - app-net
 

@@ -23,11 +23,12 @@ public class ExchangeGeneratorClient {
     public List<RatesDto> getRates() {
         String url = exchangeGeneratorUrl + "/exchange";
         ResponseEntity<List<RatesDto>> response = restTemplate.exchange(
-        url,
+                url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<>() {}
- );
+                new ParameterizedTypeReference<>() {
+                }
+        );
         return response.getBody();
     }
 }

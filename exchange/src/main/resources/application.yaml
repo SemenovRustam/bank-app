@@ -6,10 +6,16 @@ client:
   exchange-generator:
     url: ${EXCHANGE_GENERATOR_SERVICE_URL:http://exchange-generator:8080}
 management:
+  zipkin:
+    tracing:
+      endpoint: ${SPRING_ZIPKIN_BASE_URL:http://zipkin:9411}/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1
   endpoints:
     web:
       exposure:
-        include: health, info
+        include: '*'
   endpoint:
     health:
       show-details: always

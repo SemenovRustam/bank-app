@@ -2,6 +2,9 @@ package com.semenov.exchangegenerator.service;
 
 import com.semenov.exchangegenerator.dto.Currency;
 import com.semenov.exchangegenerator.dto.RatesDto;
+import io.micrometer.tracing.Span;
+import io.micrometer.tracing.Tracer;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -12,36 +15,42 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CurrencyGeneratorService {
-
-
     private final List<RatesDto> rates = new ArrayList<>();
+    private final Tracer tracer;
 
     public List<RatesDto> getRates() {
         return rates;
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 10000)
     public void generate() {
-        rates.clear();
-        RatesDto rub = RatesDto.builder()
-                .value(1.0)
-                .currency(Currency.RUB)
-                .build();
+        Span newSpan = tracer.nextSpan().name("generate-rates").start();
 
-        RatesDto usd = RatesDto.builder()
-                .value((ThreadLocalRandom.current().nextDouble(78, 85)))
-                .currency(Currency.USD)
-                .build();
+        try (Tracer.SpanInScope ws = tracer.withSpan(newSpan)) {
+            rates.clear();
+            RatesDto rub = RatesDto.builder()
+                    .value(1.0)
+                    .currency(Currency.RUB)
+                    .build();
 
-        RatesDto cny = RatesDto.builder()
-                .value(ThreadLocalRandom.current().nextDouble(9, 11))
-                .currency(Currency.CNY)
-                .build();
+            RatesDto usd = RatesDto.builder()
+                    .value((ThreadLocalRandom.current().nextDouble(78, 85)))
+                    .currency(Currency.USD)
+                    .build();
 
-        rates.add(rub);
-        rates.add(usd);
-        rates.add(cny);
-        log.info("Current rates {}", rates);
+            RatesDto cny = RatesDto.builder()
+                    .value(ThreadLocalRandom.current().nextDouble(9, 11))
+                    .currency(Currency.CNY)
+                    .build();
+
+            rates.add(rub);
+            rates.add(usd);
+            rates.add(cny);
+            log.info("Current rates {}", rates);
+        } finally {
+            newSpan.end(); // Завершаем span
+        }
     }
 }

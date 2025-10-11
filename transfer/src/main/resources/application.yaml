@@ -8,3 +8,19 @@ client:
 
 server:
   port: 8083
+
+
+management:
+  zipkin:
+    tracing:
+      endpoint: ${SPRING_ZIPKIN_BASE_URL:http://zipkin:9411}/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

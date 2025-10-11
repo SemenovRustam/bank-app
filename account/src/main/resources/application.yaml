@@ -20,16 +20,18 @@ spring:
     user: postgres
     password: ${SPRING_DATASOURCE_PASSWORD:admin}
     change-log: classpath:db/changelog/changelog.yml
-#  cloud:
-#    consul:
-#      host: consul
-#      port: 8500
 
 management:
+  zipkin:
+    tracing:
+      endpoint: ${SPRING_ZIPKIN_BASE_URL:http://zipkin:9411}/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1
   endpoints:
     web:
       exposure:
-        include: health, info
+        include: '*'
   endpoint:
     health:
       show-details: always
