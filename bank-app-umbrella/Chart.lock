@@ -11,5 +11,14 @@ dependencies:
 - name: exchange-generator
   repository: file://./charts/exchange-generator
   version: 0.1.0
-digest: sha256:3fd6fcd645d967b4fbacd37e6ff99ab70aa99205aa4b8fc2d3eda35d33e69d0b
-generated: "2025-10-12T12:07:24.713311+03:00"
+- name: zipkin
+  repository: https://openzipkin.github.io/zipkin-helm
+  version: 0.3.4
+- name: prometheus
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 27.4.0
+- name: grafana
+  repository: https://grafana.github.io/helm-charts
+  version: 6.59.4
+digest: sha256:98e123c52fa91f664f5264ec1472dae2745d7cd7580f2b2570a54d431d4b99b5
+generated: "2025-10-12T14:30:59.720305+03:00"

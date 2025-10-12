@@ -326,3 +326,26 @@ prometheus:
     service:
       type: ClusterIP
       port: 80
+    extraScrapeConfigs:
+      name: prometheus-additional-scrape-configs
+      key: extra-scrape-configs.yaml
+#    extraScrapeConfigs:
+#      - job_name: 'account'
+#        metrics_path: /actuator/prometheus
+#        static_configs:
+#          - targets: [ 'bank-app-umbrella-account:8090' ]
+#
+#      - job_name: 'exchange'
+#        metrics_path: /actuator/prometheus
+#        static_configs:
+#          - targets: [ 'bank-app-umbrella-exchange:8086' ]
+#
+#      - job_name: 'exchange-generator'
+#        metrics_path: /actuator/prometheus
+#        static_configs:
+#          - targets: [ 'bank-app-umbrella-exchange-generator:8088' ]
+#
+#      - job_name: 'gateway'
+#        metrics_path: /actuator/prometheus
+#        static_configs:
+#          - targets: [ 'bank-app-umbrella-gateway:8081' ]

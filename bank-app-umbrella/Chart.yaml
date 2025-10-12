@@ -51,11 +51,16 @@ dependencies:
 #    version: "0.1.0"
 #    repository: "file://./charts/gateway"
 #
-#  - name: zipkin
-#    version: "0.3.4"
-#    repository: "https://openzipkin.github.io/zipkin-helm"
-#
-#  - name: prometheus
-#    version: "27.4.0"
-#    repository: "https://prometheus-community.github.io/helm-charts"
-#    condition: prometheus.enabled
+  - name: zipkin
+    version: "0.3.4"
+    repository: "https://openzipkin.github.io/zipkin-helm"
+
+  - name: prometheus
+    version: "27.4.0"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    condition: prometheus.enabled
+
+  - name: grafana
+    version: 6.59.4
+    repository: https://grafana.github.io/helm-charts
+    alias: grafana
