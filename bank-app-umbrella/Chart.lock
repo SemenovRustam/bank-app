@@ -20,5 +20,8 @@ dependencies:
 - name: gateway
   repository: file://./charts/gateway
   version: 0.1.0
-digest: sha256:af5d2be9ffec305b9580ba786d03118cff6835998df2c58cad4a2f8709c666c9
-generated: "2025-09-19T15:15:38.514059+03:00"
+- name: zipkin
+  repository: https://openzipkin.github.io/zipkin-helm
+  version: 0.3.4
+digest: sha256:f2e6b917736afa6274a598e313096a8014c87e92fff6c1fa7a667f54743ece1b
+generated: "2025-10-12T11:34:05.796855+03:00"
