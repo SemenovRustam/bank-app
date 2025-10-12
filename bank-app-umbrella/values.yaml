@@ -315,4 +315,14 @@ zipkin:
   replicaCount: 1
 
 prometheus:
-  enabled: false
+  enabled: true
+  alertmanager:
+    enabled: false
+  pushgateway:
+    enabled: false
+  kubeStateMetrics:
+    enabled: false
+  server:
+    service:
+      type: ClusterIP
+      port: 80
