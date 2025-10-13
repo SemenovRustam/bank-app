@@ -25,6 +25,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/actuator/prometheus").permitAll()  // Разрешаем доступ к метрикам
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
