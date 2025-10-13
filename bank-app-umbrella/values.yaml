@@ -314,21 +314,21 @@ zipkin:
   enabled: false
   replicaCount: 1
 
-prometheus:
-  enabled: true
-  alertmanager:
-    enabled: false
-  pushgateway:
-    enabled: false
-  kubeStateMetrics:
-    enabled: false
-  server:
-    service:
-      type: ClusterIP
-      port: 80
-    extraScrapeConfigs:
-      name: prometheus-additional-scrape-configs
-      key: extra-scrape-configs.yaml
+#prometheus:
+#  enabled: true
+#  alertmanager:
+#    enabled: false
+#  pushgateway:
+#    enabled: false
+#  kubeStateMetrics:
+#    enabled: false
+#  server:
+#    service:
+#      type: ClusterIP
+#      port: 80
+#    extraScrapeConfigs:
+#      name: prometheus-additional-scrape-configs
+#      key: extra-scrape-configs.yaml
 #    extraScrapeConfigs:
 #      - job_name: 'account'
 #        metrics_path: /actuator/prometheus
