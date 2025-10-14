@@ -62,3 +62,13 @@ dependencies:
   - name: grafana
     version: 6.59.4
     repository: "file://./charts/grafana"
+
+  - name: elasticsearch
+    version: "0.1.0"
+    repository: "file://./charts/elasticsearch"
+  - name: logstash
+    version: "0.1.0"
+    repository: "file://./charts/logstash"
+  - name: kibana
+    version: "0.1.0"
+    repository: "file://./charts/kibana"
