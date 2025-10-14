@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.semenov.exchange.client.ExchangeGeneratorClient;
 import com.semenov.exchange.dto.RatesDto;
 import com.semenov.exchange.dto.RatesWrapper;
+import com.semenov.exchange.metric.ExchangeMetric;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class ExchangeService {
     private final Tracer tracer;
     private final ObjectMapper mapper;
     private final List<RatesDto> rates = new ArrayList<>();
+    private final ExchangeMetric metric;
 
     public List<RatesDto> getRates() {
         return rates;
@@ -41,6 +43,7 @@ public class ExchangeService {
             }
 
             log.info("Update rates: {}", rates);
+            metric.incrementExchangeCounter();
         } finally {
             newSpan.end();
         }
