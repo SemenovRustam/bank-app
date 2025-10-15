@@ -27,6 +27,7 @@ postgresql:
       size: 1Gi
 
 account:
+  enabled: false
   replicaCount: 1
   image:
     repository: account
@@ -148,6 +149,7 @@ account:
 #    periodSeconds: 5
 
 front:
+  enabled: false
   replicaCount: 1
   image:
     repository: front
@@ -187,6 +189,7 @@ front:
     periodSeconds: 5
 
 gateway:
+  enabled: false
   replicaCount: 1
   image:
     repository: gateway
@@ -263,6 +266,7 @@ keycloak:
         name: keycloak-realm-import-config-map
 
 notifications:
+  enabled: false
   replicaCount: 1
   image:
     repository: notifications
@@ -305,3 +309,8 @@ notifications:
 #      port: 8083
 #    initialDelaySeconds: 5
 #    periodSeconds: 5
+
+zipkin:
+  enabled: false
+  replicaCount: 1
+

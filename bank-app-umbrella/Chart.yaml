@@ -15,7 +15,6 @@ dependencies:
     repository: "oci://registry-1.docker.io/bitnamicharts"
     condition: postgresql.enabled
 
-
   - name: exchange
     version: "0.1.0"
     repository: "file://./charts/exchange"
@@ -40,16 +39,36 @@ dependencies:
 #    version: "0.1.0"
 #    repository: "file://./charts/cash"
 
-  - name: front
+#  - name: front
+#    version: "0.1.0"
+#    repository: "file://./charts/front"
+#
+#  - name: account
+#    version: "0.1.0"
+#    repository: "file://./charts/account"
+#
+#  - name: gateway
+#    version: "0.1.0"
+#    repository: "file://./charts/gateway"
+#
+  - name: zipkin
+    version: "0.3.4"
+    repository: "https://openzipkin.github.io/zipkin-helm"
+
+  - name: prometheus
     version: "0.1.0"
-    repository: "file://./charts/front"
+    repository: "file://./charts/prometheus"
 
-  - name: account
+  - name: grafana
+    version: 6.59.4
+    repository: "file://./charts/grafana"
+
+  - name: elasticsearch
     version: "0.1.0"
-    repository: "file://./charts/account"
-
-  - name: gateway
+    repository: "file://./charts/elasticsearch"
+  - name: logstash
     version: "0.1.0"
-    repository: "file://./charts/gateway"
-
-
+    repository: "file://./charts/logstash"
+  - name: kibana
+    version: "0.1.0"
+    repository: "file://./charts/kibana"
